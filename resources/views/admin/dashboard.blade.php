@@ -4,6 +4,8 @@
 
 @section('sidebar')
     <a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
+    <a href="{{ route('admin.bulk.uploads') }}"><i class="fas fa-file-upload"></i> Bulk Uploads</a>
     <a href="#"><i class="fas fa-users"></i> Manage Users</a>
     <a href="#"><i class="fas fa-box"></i> Manage Products</a>
     <a href="#"><i class="fas fa-cogs"></i> Settings</a>
@@ -12,25 +14,55 @@
 @section('page_title', 'Welcome Admin, ' . Auth::user()->name)
 
 @section('content')
-<div class="row">
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-                <i class="fas fa-users fa-2x text-info"></i>
-                <h5 class="mt-3">Users</h5>
-                <p>View and manage registered users.</p>
-            </div>
-        </div>
-    </div>
+    <div class="row">
 
-    <div class="col-md-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-body text-center">
-                <i class="fas fa-chart-line fa-2x text-warning"></i>
-                <h5 class="mt-3">Reports</h5>
-                <p>Check application statistics.</p>
+        <div class="col-md-12">
+            {{-- <div class="mb-4">
+                <form action="{{ route('admin.users.bulkUpload') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="input-group">
+                        <input type="file" name="csv_file" class="form-control" required>
+                        <button type="submit" class="btn btn-primary">Upload CSV</button>
+                    </div>
+                </form>
+            </div> --}}
+
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="mb-3"><i class="fas fa-users"></i> All Users</h4>
+
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Country ID</th>
+                                <th>City ID</th>
+                                <th>Role</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->gender }}</td>
+                                    <td>{{ $user->country?->name }}</td>
+                                    <td>{{ $user->city?->name }}</td>
+                                    <td>{{ ucfirst($user->role) }}</td>
+                                    <td>{{ $user->created_at->format('d M Y') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

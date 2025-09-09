@@ -30,5 +30,12 @@ Route::get('/api/cities/{country_id}', [RegisterController::class, 'getCities'])
 Route::middleware(['auth', 'role.redirect'])->group(function () {
     Route::get('/user/dashboard', [RegisterController::class, 'userDashboard'])->name('user.dashboard')->middleware('role:user');
     Route::get('/admin/dashboard', [RegisterController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('role:admin');
+    // Route::post('/admin/users/bulk-upload', [RegisterController::class, 'bulkUpload'])->name('admin.users.bulkUpload');
+
+    Route::get('/admin/bulk-uploads', [RegisterController::class, 'bulkUploadPage'])->name('admin.bulk.uploads');
+    Route::post('/admin/bulk-uploads', [RegisterController::class, 'bulkUpload'])->name('admin.bulk.uploads.store');
+    Route::get('/admin/bulk-uploads/sample', [RegisterController::class, 'downloadSample'])->name('admin.bulk.uploads.sample');
+
+
 });
 

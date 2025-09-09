@@ -181,3 +181,24 @@ php artisan db:seed --class=CitySeeder
 ## auth conttroller
 
 `php artisan make:controller Auth/RegisterController`
+
+## middleware
+
+php artisan make:middleware RoleMiddleware
+
+
+## Step-by-step Command to Update Password via `tinker`
+
+<pre class="overflow-visible!" data-start="428" data-end="562"><div class="contain-inline-size rounded-2xl relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-php"><span><span>$user</span><span> = </span><span>App\Models\User</span><span>::</span><span>where</span><span>(</span><span>'email'</span><span>, </span><span>'email@gmail.com'</span><span>)-></span><span>first</span><span>();
+</span><span>$user</span><span>->password = </span><span>bcrypt</span><span>(</span><span>'1111111111'</span><span>);
+</span><span>$user</span><span>-></span><span>save</span><span>();</span></span></code></div></div></pre>
+
+
+## job create for bulk upload
+
+php artisan make:job BulkUserUploadJob
+
+
+## upload ke time queue run karna rahega
+
+php artisan queue:work
