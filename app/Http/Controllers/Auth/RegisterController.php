@@ -106,7 +106,7 @@ class RegisterController extends Controller
 
     public function adminDashboard()
     {
-        $users = User::all();
+         $users = User::paginate(10);
         return view('admin.dashboard', compact('users'));
     }
 
